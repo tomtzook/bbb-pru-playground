@@ -1,0 +1,31 @@
+compilers:
+  - description: TI PRU
+    match-sources: ".*\\.c"
+    match-language: C
+    match-compiler-exe: "(.*/)?clpru(\\.exe)?"
+    code-insight-target-name: avr
+    include-dirs: ${compiler-exe-dir}/../include
+    defines:
+      _DATA_ACCESS:
+    defines-text: "
+#define __PRU__
+#define __SIZE_T_TYPE__ unsigned	
+#define __PTRDIFF_T_TYPE__ int	
+"
+
+  - description: CPP TI PRU
+    match-sources: ".*\\.cpp"
+    match-language: CPP
+    match-compiler-exe: "(.*/)?clpru(\\.exe)?"
+    code-insight-target-name: avr
+    include-dirs: ["${compiler-exe-dir}/../include", "${compiler-exe-dir}/../include/stlport"]
+    defines:
+      _DATA_ACCESS:
+    defines-text: "	
+#define __PRU__
+#define __STDC__ 1
+#define __STDC_HOSTED__ 1	
+#define __cplusplus 201402L
+#define __SIZE_T_TYPE__ unsigned	
+#define __PTRDIFF_T_TYPE__ int	
+"
