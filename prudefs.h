@@ -1,5 +1,7 @@
 #pragma once
 
+// defines
+
 #define PRU0_PRU1_INTERRUPT 17
 #define PRU1_PRU0_INTERRUPT 18
 #define PRU0_ARM_INTERRUPT 19
@@ -320,26 +322,99 @@
 #define GPIO_CLEARDATAOUT 0x190
 #define GPIO_SETDATAOUT 0x194
 
-// USR LED bit positions
-// GPIO 1
+// Defines for pins on GPIO0
+#define P8_13 (1<<23) // EHRPWM2B
+#define P8_14 (1<<26)
+#define P8_17 (1<<27)
+#define P8_19 (1<<22) // EHRPWM2A
+#define P8_31 (1<<10) // UART5_CTSN
+#define P8_32 (1<<11) // UART5_RTSN
+#define P8_33 (1<<9) // UART4_RTSN
+#define P8_35 (1<<8) // UART4_CTSN
+
+#define P9_11 (1<<30) // UART4_RXD
+#define P9_13 (1<<31) // UART4_TXD
+#define P9_17 (1<<5) // I2C1_SCL
+#define P9_18 (1<<4) // I2C1_SDA
+#define P9_19 (1<<13) // I2C2_SCL
+#define P9_20 (1<<12) // I2C2_SDA
+#define P9_21 (1<<3) // UART2_TXD
+#define P9_22 (1<<2) // UART2_RXD
+#define P9_24 (1<<15) // UART1_RXD
+#define P9_26 (1<<14) // UART1_RXD
+#define P9_41A (1<<20)
+#define P9_42A (1<<7)
+
+// Defines for pins on GPIO1
+#define P8_03 (1<<6)
+#define P8_04 (1<<7)
+#define P8_05 (1<<2)
+#define P8_06 (1<<3)
+#define P8_11 (1<<13)
+#define P8_12 (1<<12)
+#define P8_15 (1<<15)
+#define P8_16 (1<<14)
+#define P8_20 (1<<31)
+#define P8_21 (1<<30)
+#define P8_22 (1<<5)
+#define P8_23 (1<<4)
+#define P8_24 (1<<1)
+#define P8_25 (1<<0)
+#define P8_26 (1<<29)
+
+#define P9_12 (1<<28)
+#define P9_14 (1<<18) // EHRPWM1A
+#define P9_15 (1<<16)
+#define P9_16 (1<<19) // EHRPWM1B
+#define P9_23 (1<<17)
+
 #define USR0 (1<<21)
 #define USR1 (1<<22)
 #define USR2 (1<<23)
 #define USR3 (1<<24)
-// The define a couple of GPIO pin addresses on Black
-// GPIO1
-#define P9_14 (1<<18)
-#define P9_16 (1<<19)
+
+// Defines for pins on GPIO2
+#define P8_07 (1<<2) // TIMER4
+#define P8_08 (1<<3) // TIMER7
+#define P8_09 (1<<5) // TIMER5
+#define P8_10 (1<<4) // TIMER6
+#define P8_18 (1<<1)
+#define P8_27 (1<<22)
+#define P8_28 (1<<24)
+#define P8_29 (1<<23)
+#define P8_30 (1<<25)
+#define P8_34 (1<<17) // UART3_RTSN
+#define P8_36 (1<<16) // UART3_CTSN
+#define P8_37 (1<<14) // UART5_TXD
+#define P8_38 (1<<15) // UART5_RXD
+#define P8_39 (1<<12)
+#define P8_40 (1<<13)
+#define P8_41 (1<<10)
+#define P8_42 (1<<11)
+#define P8_43 (1<<8)
+#define P8_44 (1<<9)
+#define P8_45 (1<<6)
+#define P8_46 (1<<7)
+
+// Defines for pins on GPIO3
+#define P9_25 (1<<21)
+#define P9_27 (1<<19)
+#define P9_28 (1<<17) // SPI1_CS0
+#define P9_29 (1<<15) // SPI1_d0
+#define P9_30 (1<<16) // SPI1_D1
+#define P9_31 (1<<14) // SPI1_SCLK
+#define P9_41B (1<<20)
+#define P9_42B (1<<18)
 
 // R30 output bits on pru0
-#define P9_31   (1<<0)
-#define P9_29   (1<<1)
-#define P9_30   (1<<2)
-#define P9_28   (1<<3)
-#define P9_92   (1<<4)
-#define P9_27   (1<<5)
-#define P9_91   (1<<6)
-#define P9_25   (1<<7)
+#define EGPIO_PRU0_P9_31   (1<<0)
+#define EGPIO_PRU0_P9_29   (1<<1)
+#define EGPIO_PRU0_P9_30   (1<<2)
+#define EGPIO_PRU0_P9_28   (1<<3)
+#define EGPIO_PRU0_P9_92   (1<<4)
+#define EGPIO_PRU0_P9_27   (1<<5)
+#define EGPIO_PRU0_P9_91   (1<<6)
+#define EGPIO_PRU0_P9_25   (1<<7)
 
 // Shared memory
 #define AM33XX_DATARAM0_PHYS_BASE		0x4a300000

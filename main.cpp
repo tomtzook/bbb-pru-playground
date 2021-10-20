@@ -2,8 +2,8 @@
 #include <pru_cfg.h>
 
 #include "intrinsic.h"
+#include "prudefs.h"
 #include "resource_table_empty.h"
-#include "prugpio.h"
 
 
 unsigned int volatile * const GPIO1_SET = (unsigned int *)(GPIO1 + GPIO_SETDATAOUT);
