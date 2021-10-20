@@ -1,5 +1,7 @@
 #pragma once
 
+#define CYCLES_PER_SECOND 200000000 /* PRU has 200 MHz clock */
+
 #define PRAGMA(X) _Pragma(#X)
 #define ASM(X) __asm(X)
 

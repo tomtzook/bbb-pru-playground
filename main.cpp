@@ -1,24 +1,25 @@
 #include <stdint.h>
-#include <stddef.h>
-#include <rsc_types.h>  /* provides struct resource_table */
-#include <vector>
+#include <pru_cfg.h>
 
 #include "intrinsic.h"
+#include "resource_table_empty.h"
+#include "prugpio.h"
 
-#define CYCLES_PER_SECOND 200000000 /* PRU has 200 MHz clock */
 
-#define P9_31 (1 << 0) /* R30 at 0x1 = pru1_pru0_pru_r30_0 = ball A13 = P9_31 */
-
-volatile register uint32_t __R30; /* output register for PRU */
+unsigned int volatile * const GPIO1_SET = (unsigned int *)(GPIO1 + GPIO_SETDATAOUT);
+unsigned int volatile * const GPIO1_CLEAR = (unsigned int *)(GPIO1 + GPIO_CLEARDATAOUT);
 
 int main() {
-    //std::vector<int> v;
-    //v.push_back(5);
-    //__asm("     HALT");
-    ASM("   HALT");
+     int i;
+    /* Configure GPI and GPO as Mode 0 (Direct Connect) */
+    CT_CFG.GPCFG0 = 0x0000;
 
-    __delay_cycles(5);
-
+    for (i = 0; i < 50; i++) {
+        *GPIO1_SET = (USR3 | USR2);
+        __delay_cycles(100000000); // half-second delay
+        *GPIO1_CLEAR = (USR3 | USR2);
+        __delay_cycles(100000000); // half-second delay
+    }
 
     __halt();
 

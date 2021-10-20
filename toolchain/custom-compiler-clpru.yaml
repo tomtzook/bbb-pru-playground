@@ -10,7 +10,8 @@ compilers:
     defines-text: "
 #define __PRU__
 #define __SIZE_T_TYPE__ unsigned	
-#define __PTRDIFF_T_TYPE__ int	
+#define __PTRDIFF_T_TYPE__ int
+#define __far
 "
 
   - description: CPP TI PRU
@@ -27,5 +28,6 @@ compilers:
 #define __STDC_HOSTED__ 1	
 #define __cplusplus 201402L
 #define __SIZE_T_TYPE__ unsigned	
-#define __PTRDIFF_T_TYPE__ int	
+#define __PTRDIFF_T_TYPE__ int
+#define __far
 "
