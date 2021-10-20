@@ -6,6 +6,7 @@
 #include "resource_table_empty.h"
 
 #include "prugpiocxx.h"
+#include "pruegpiocxx.h"
 
 
 int main() {

@@ -407,14 +407,66 @@
 #define P9_42B (1<<18)
 
 // R30 output bits on pru0
-#define EGPIO_PRU0_P9_31   (1<<0)
-#define EGPIO_PRU0_P9_29   (1<<1)
-#define EGPIO_PRU0_P9_30   (1<<2)
-#define EGPIO_PRU0_P9_28   (1<<3)
-#define EGPIO_PRU0_P9_92   (1<<4)
-#define EGPIO_PRU0_P9_27   (1<<5)
-#define EGPIO_PRU0_P9_91   (1<<6)
-#define EGPIO_PRU0_P9_25   (1<<7)
+#define PRU0_R30_P8_11  (1<<15) // pru0_pru_r30_15 mode6
+#define PRU0_R30_P8_12  (1<<14) // pru0_pru_r30_14 mode6
+
+#define PRU0_R30_P9_25   (1<<7) // pru0_pru_r30_7 mode5
+#define PRU0_R30_P9_27   (1<<5) // pru0_pru_r30_5 mode5
+#define PRU0_R30_P9_28   (1<<3) // pru0_pru_r30_3 mode5
+#define PRU0_R30_P9_29   (1<<1) // pru0_pru_r30_1 mode5
+#define PRU0_R30_P9_30   (1<<2) // pru0_pru_r30_2 mode5
+#define PRU0_R30_P9_31   (1<<0) // pru0_pru_r30_0 mode5
+#define PRU0_R30_P9_41B   (1<<6) // pru0_pru_r30_6 mode5
+#define PRU0_R30_P9_42B   (1<<4) // pru0_pru_r30_4 mode5
+
+// R31 output bits on pru0
+#define PRU0_R31_P8_15  (1<<15) // pru0_pru_r31_15 mode6
+#define PRU0_R31_P8_16  (1<<14) // pru0_pru_r31_14 mode6
+
+#define PRU0_R31_P9_24   (1<<16) // pru0_pru_r31_16 mode6
+#define PRU0_R31_P9_25   (1<<7) // pru0_pru_r31_7 mode6
+#define PRU0_R31_P9_27   (1<<5) // pru0_pru_r31_5 mode6
+#define PRU0_R31_P9_28   (1<<3) // pru0_pru_r31_3 mode6
+#define PRU0_R31_P9_29   (1<<1) // pru0_pru_r31_1 mode6
+#define PRU0_R31_P9_30   (1<<2) // pru0_pru_r31_2 mode6
+#define PRU0_R31_P9_31   (1<<0) // pru0_pru_r31_0 mode6
+#define PRU0_R31_P9_41A   (1<<16) // pru0_pru_r31_16 mode5
+#define PRU0_R31_P9_41B   (1<<6) // pru0_pru_r31_6 mode6
+#define PRU0_R31_P9_42B   (1<<4) // pru0_pru_r31_4 mode6
+
+// R30 output bits on pru1
+#define PRU1_R30_P8_20  (1<<13) // pru1_pru_r30_13 mode5
+#define PRU1_R30_P8_21  (1<<12) // pru1_pru_r30_12 mode5
+#define PRU1_R30_P8_27  (1<<8) // pru1_pru_r30_8 mode5
+#define PRU1_R30_P8_28  (1<<10) // pru1_pru_r30_10 mode5
+#define PRU1_R30_P8_29  (1<<9) // pru1_pru_r30_9 mode5
+#define PRU1_R30_P8_30  (1<<11) // pru1_pru_r30_11 mode5
+#define PRU1_R30_P8_39  (1<<6) // pru1_pru_r30_6 mode5
+#define PRU1_R30_P8_40  (1<<7) // pru1_pru_r30_7 mode5
+#define PRU1_R30_P8_41  (1<<4) // pru1_pru_r30_4 mode5
+#define PRU1_R30_P8_42  (1<<5) // pru1_pru_r30_5 mode5
+#define PRU1_R30_P8_43  (1<<2) // pru1_pru_r30_2 mode5
+#define PRU1_R30_P8_44  (1<<3) // pru1_pru_r30_3 mode5
+#define PRU1_R30_P8_45  (1<<0) // pru1_pru_r30_0 mode5
+#define PRU1_R30_P8_46  (1<<1) // pru1_pru_r30_1 mode5
+
+// R31 output bits on pru1
+#define PRU1_R31_P8_20  (1<<13) // pru1_pru_r31_13 mode6
+#define PRU1_R31_P8_21  (1<<12) // pru1_pru_r31_12 mode6
+#define PRU1_R31_P8_27  (1<<8) // pru1_pru_r31_8 mode6
+#define PRU1_R31_P8_28  (1<<10) // pru1_pru_r31_10 mode6
+#define PRU1_R31_P8_29  (1<<9) // pru1_pru_r31_9 mode6
+#define PRU1_R31_P8_30  (1<<11) // pru1_pru_r31_11 mode6
+#define PRU1_R31_P8_39  (1<<6) // pru1_pru_r31_6 mode6
+#define PRU1_R31_P8_40  (1<<7) // pru1_pru_r31_7 mode6
+#define PRU1_R31_P8_41  (1<<4) // pru1_pru_r31_4 mode6
+#define PRU1_R31_P8_42  (1<<5) // pru1_pru_r31_5 mode6
+#define PRU1_R31_P8_43  (1<<2) // pru1_pru_r31_2 mode6
+#define PRU1_R31_P8_44  (1<<3) // pru1_pru_r31_3 mode6
+#define PRU1_R31_P8_45  (1<<0) // pru1_pru_r31_0 mode6
+#define PRU1_R31_P8_46  (1<<1) // pru1_pru_r31_1 mode6
+
+#define PRU1_R31_P9_26   (1<<16) // pru1_pru_r31_16 mode6
 
 // Shared memory
 #define AM33XX_DATARAM0_PHYS_BASE		0x4a300000

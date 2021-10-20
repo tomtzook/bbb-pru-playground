@@ -10,3 +10,9 @@
 - [PRU Cookbook](https://beagleboard.org/static/prucookbook/#_getting_example_code)
 - Examples
   - [ADC assembly PRU](https://github.com/HAJMOUSA/pru_sdk/blob/master/example/pruss_all/adc.hp)
+
+# Modes
+- Mode 5: EGPIO output (R30)
+- Mode 6: EGPIO input (R31)
+- Mode 7: GPIO
+- 
