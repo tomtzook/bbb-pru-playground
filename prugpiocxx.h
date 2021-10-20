@@ -2,28 +2,32 @@
 
 #include "prudefs.h"
 
+
+#define GPIO(base, mask) pru::gpio::gpio_pin_t<pru::gpio::base, mask>
+#define DEFINE_GPIO(base, mask, name) typedef GPIO(base, mask) name;
+
 namespace pru {
 namespace gpio {
 
-enum class gpio_dir_t {
-    OUTPUT,
-    INPUT
+enum gpio_dir_t {
+    DIRECTION_OUTPUT,
+    DIRECTION_INPUT
 };
 
 template<unsigned BASE>
 struct gpio_base_t {
     inline static gpio_dir_t direction(unsigned mask) {
         return (*((unsigned int volatile*) (BASE + GPIO_OE)) & mask) ?
-               gpio_dir_t::INPUT :
-               gpio_dir_t::OUTPUT;
+               DIRECTION_INPUT :
+               DIRECTION_OUTPUT;
     }
 
     inline static void set_direction(unsigned mask, gpio_dir_t direction) {
         switch (direction) {
-            case gpio_dir_t::OUTPUT:
+            case DIRECTION_OUTPUT:
                 *((unsigned int volatile*) (BASE + GPIO_OE)) &= ~mask;
                 break;
-            case gpio_dir_t::INPUT:
+            case DIRECTION_INPUT:
                 *((unsigned int volatile*) (BASE + GPIO_OE)) |= mask;
                 break;
         }
@@ -38,7 +42,7 @@ struct gpio_base_t {
     }
 
     inline static bool read(unsigned mask) {
-        if (gpio_dir_t::INPUT == direction(mask)) {
+        if (DIRECTION_INPUT == direction(mask)) {
             return (*((unsigned int volatile*) (BASE + GPIO_DATAIN)) & mask) != 0;
         } else {
             return (*((unsigned int volatile*) (BASE + GPIO_DATAOUT)) & mask) != 0;
