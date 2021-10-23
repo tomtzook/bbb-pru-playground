@@ -9,6 +9,7 @@ namespace egpio {
 
 template<reg_t reg, unsigned mask>
 struct egpio_out_pin_t {
+public:
     inline static void set() {
         auto value = read_reg<reg>();
         value |= mask;
@@ -23,6 +24,7 @@ struct egpio_out_pin_t {
 
 template<reg_t reg, unsigned mask>
 struct egpio_in_pin_t {
+public:
     inline static bool read() {
         auto value = read_reg<reg>();
         return (value & mask) != 0;
@@ -31,6 +33,7 @@ struct egpio_in_pin_t {
 
 template<unsigned mask>
 struct r30_pin_t {
+public:
     inline static void set() {
         egpio_out_pin_t<r30, mask>::set();
     }
@@ -38,8 +41,10 @@ struct r30_pin_t {
         egpio_out_pin_t<r30, mask>::clear();
     }
 };
+
 template<unsigned mask>
 struct r31_pin_t {
+public:
     inline static bool read() {
         return egpio_in_pin_t<r31, mask>::read();
     }

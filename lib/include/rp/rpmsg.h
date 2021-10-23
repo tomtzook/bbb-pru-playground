@@ -8,6 +8,8 @@ extern "C" {
 namespace pru {
 namespace rpmsg {
 
+void wait_until_ready(fw_rsc_vdev& vdev);
+
 class channel {
 public:
     channel(fw_rsc_vdev_vring* vring0, fw_rsc_vdev_vring* vring1,
@@ -20,8 +22,6 @@ public:
 private:
     pru_rpmsg_transport m_transport;
 };
-
-void wait_until_ready(fw_rsc_vdev& vdev);
 
 }
 }

@@ -466,14 +466,19 @@
 #define PRU1_R31_P8_45  (1<<0) // pru1_pru_r31_0 mode6
 #define PRU1_R31_P8_46  (1<<1) // pru1_pru_r31_1 mode6
 
-#define PRU1_R31_P9_26   (1<<16) // pru1_pru_r31_16 mode6
+#define PRU1_R31_P9_26  (1<<16) // pru1_pru_r31_16 mode6
 
 // memory
-#define AM33XX_DATARAM0_PHYS_BASE		0x4a300000
-#define AM33XX_DATARAM1_PHYS_BASE		0x4a302000
-#define AM33XX_PRUSS_SHAREDRAM_BASE		0x4a310000
-
-#define PRU0_DRAM   0x00000
+#define PRU_LOCAL_DRAM  0x00000000
+#define PRU_OTHER_DRAM  0x00002000
+#define PRU_SHARED_MEM  0x00010000
 
 // interrupts
-#define PRU0_R31_FROM_HOST_INT (1 << 30)
+#define PRU0_R31_FROM_HOST_INT (1u << 30)
+#define PRU1_R31_FROM_HOST_INT (1u << 31)
+
+// events
+#define EVENT_PRU0_TO_ARM 16
+#define EVENT_ARM_TO_PRU0 17
+#define EVENT_PRU1_TO_ARM 18
+#define EVENT_ARM_TO_PRU1 19

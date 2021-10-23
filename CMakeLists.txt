@@ -31,7 +31,10 @@ include_directories(${PRU_SOFTPKG_HOME}/include/am335x)
 
 add_executable(pru_test main.cpp
         lib/src/rp/rpmsg.cpp
-        lib/src/regs.cpp)
+        lib/src/regs.cpp
+        lib/src/iep.cpp
+        lib/src/config.cpp
+        lib/src/intc.cpp)
 target_compile_options(pru_test PRIVATE
         --include_path=${CMAKE_CURRENT_SOURCE_DIR}/include
         --include_path=${PRU_COMPILER_HOME}/include
