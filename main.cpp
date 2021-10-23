@@ -6,11 +6,14 @@ extern "C" {
 #include <pru_rpmsg.h>
 }
 
-#include "intrinsic.h"
 #include "prudefs.h"
+#include "intrinsic.h"
+#include "config.h"
+#include "iep.h"
+#include "intc.h"
 #include "rp/rpmsg.h"
-#include "prugpiocxx.h"
-#include "pruegpiocxx.h"
+#include "gpio.h"
+#include "egpio.h"
 
 //#include "resource_table_empty.h"
 #include "resource_table_0.h"
@@ -34,19 +37,19 @@ extern "C" {
 #define CHAN_DESC			"Channel 30"
 #define CHAN_PORT			30
 
-/*
- * Used to make sure the Linux drivers are ready for RPMsg communication
- * Found at linux-x.y.z/include/uapi/linux/virtio_config.h
- */
-#define VIRTIO_CONFIG_S_DRIVER_OK	4
-
 
 uint8_t payload[RPMSG_MESSAGE_SIZE];
 
-volatile unsigned int* shared = (unsigned int*)(PRU0_DRAM);
+struct {
+    unsigned int count;
+    bool overflow;
+} message;
+
+volatile unsigned int* shared = (unsigned int*)(PRU_LOCAL_DRAM);
 
 int main() {
     shared[0] = CHAN_PORT;
+    shared[1] = true;
 
     // int i;
     /* Configure GPI and GPO as Mode 0 (Direct Connect) */
@@ -55,33 +58,39 @@ int main() {
     uint16_t src, dst, len;
 
     /* Allow OCP master port access by the PRU so the PRU can read external memories */
-    CT_CFG.SYSCFG_bit.STANDBY_INIT = 0;
+    pru::ocp_init();
 
     /* Clear the status of the PRU-ICSS system event that the ARM will use to 'kick' us */
-    CT_INTC.SICR_bit.STS_CLR_IDX = FROM_ARM_HOST;
+    pru::intc::pru0::clear_host_interrupt();
 
     /* Make sure the Linux drivers are ready for RPMsg communication */
     pru::rpmsg::wait_until_ready(resourceTable.rpmsg_vdev);
 
     pru::rpmsg::channel rpmsg(&resourceTable.rpmsg_vring0, &resourceTable.rpmsg_vring1,
-                              TO_ARM_HOST, FROM_ARM_HOST,
+                              pru::intc::pru0::pru_to_arm_event(),
+                              pru::intc::pru0::arm_to_pru_event(),
                               CHAN_NAME, CHAN_DESC, CHAN_PORT);
 
-    int i = 0;
-    while (1) {
-        /* Check bit 31 of register R31 to see if the ARM has kicked us */
-        if (pru::read_reg<pru::r31>() & PRU0_R31_FROM_HOST_INT) {
-            /* Clear the event status */
-            CT_INTC.SICR_bit.STS_CLR_IDX = FROM_ARM_HOST;
-            /* Receive all available messages, multiple messages can be sent per kick */
+    pru::iep::set_counter(0);
+    pru::iep::set_counter_compensation(0, 0);
+    pru::iep::enable_counter();
+
+    shared[1] = true;
+    while (shared[1]) {
+        if (pru::intc::pru0::did_host_interrupt()) {
+            pru::intc::pru0::clear_host_interrupt();
+
             while (PRU_RPMSG_SUCCESS == rpmsg.receive(&src, &dst, payload, &len)) {
-                __delay_ms(1000);
-                /* Echo the message back to the same address from which we just received */
-                i++;
-                payload[0] = i * 5;
-                rpmsg.send(dst, src, payload, 1);
+                message.count = pru::iep::read_counter();
+                rpmsg.send(dst, src, &message, sizeof(message));
+
+                pru::iep::set_counter(0);
             }
+
+            __delay_ms(500);
         }
+
+        shared[1] = true;
     }
 
     __halt();
