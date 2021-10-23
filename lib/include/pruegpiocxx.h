@@ -1,45 +1,50 @@
 #pragma once
 
 #include "prudefs.h"
+#include "regs.h"
 
-
-volatile register unsigned int __R30;
-volatile register unsigned int __R31;
 
 namespace pru {
 namespace egpio {
 
-struct r30_t {
-    inline static void set(unsigned mask) {
-        __R30 |= mask;
-    }
-    inline static void clear(unsigned mask) {
-        __R30 &= ~mask;
-    }
-};
-
-template<unsigned MASK>
-struct r30_pin_t {
+template<reg_t reg, unsigned mask>
+struct egpio_out_pin_t {
     inline static void set() {
-        r30_t::set(MASK);
+        auto value = read_reg<reg>();
+        value |= mask;
+        write_reg<reg>(value);
     }
     inline static void clear() {
-        r30_t::clear(MASK);
+        auto value = read_reg<reg>();
+        value &= ~mask;
+        write_reg<reg>(value);
     }
 };
 
-struct r31_t {
-    inline static bool read(unsigned mask) {
-        return (__R31 & mask) != 0;
+template<reg_t reg, unsigned mask>
+struct egpio_in_pin_t {
+    inline static bool read() {
+        auto value = read_reg<reg>();
+        return (value & mask) != 0;
     }
 };
 
-template<unsigned MASK>
+template<unsigned mask>
+struct r30_pin_t {
+    inline static void set() {
+        egpio_out_pin_t<r30, mask>::set();
+    }
+    inline static void clear() {
+        egpio_out_pin_t<r30, mask>::clear();
+    }
+};
+template<unsigned mask>
 struct r31_pin_t {
     inline static bool read() {
-        return r31_t::read(MASK);
+        return egpio_in_pin_t<r31, mask>::read();
     }
 };
+
 
 typedef r30_pin_t<PRU0_R30_P9_31> pru0_pru_r30_0; // mode5
 typedef r30_pin_t<PRU0_R30_P9_29> pru0_pru_r30_1; // mode5

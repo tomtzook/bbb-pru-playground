@@ -5,11 +5,10 @@
 #define CYCLES_PER_US 200u
 
 #define PRAGMA(X) _Pragma(#X)
-#define ASM(X) __asm(X)
 
 // some bit manipulation
 
-#define CHECK_BIT(var, bit) ((var >> bit) & 1U)
+#define IS_BIT_SET(var, bit) ((var >> bit) & 1U)
 #define SET_BIT(var, bit) (var |= (1U << bit))
 #define CLEAR_BIT(var, bit) (var &= ~(1U << bit))
 #define TOGGLE_BIT(var, bit) (var ^= (1U << bit))

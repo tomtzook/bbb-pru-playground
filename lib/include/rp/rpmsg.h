@@ -21,5 +21,7 @@ private:
     pru_rpmsg_transport m_transport;
 };
 
+void wait_until_ready(fw_rsc_vdev& vdev);
+
 }
 }

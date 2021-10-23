@@ -7,6 +7,7 @@ set(HEAP_SIZE 0x100)
 set(CMAKE_C_COMPILER ${PRU_COMPILER_HOME}/bin/clpru)
 set(CMAKE_CXX_COMPILER ${PRU_COMPILER_HOME}/bin/clpru)
 set(CMAKE_LINKER ${PRU_COMPILER_HOME}/bin/lnkpru)
+set(CMAKE_AR ${PRU_COMPILER_HOME}/bin/arpru)
 
 set(CMAKE_FIND_ROOT_PATH ${PRU_COMPILER_HOME})
 
@@ -24,11 +25,15 @@ unset(CMAKE_CXX_IMPLICIT_INCLUDE_DIRECTORIES)
 unset(CMAKE_CXX_IMPLICIT_LINK_DIRECTORIES)
 unset(CMAKE_CXX_IMPLICIT_LINK_LIBRARIES)
 
+include_directories(lib/include)
 include_directories(${PRU_SOFTPKG_HOME}/include)
 include_directories(${PRU_SOFTPKG_HOME}/include/am335x)
 
-add_executable(pru_test main.cpp rpmsg.cpp rpmsg.h)
+add_executable(pru_test main.cpp
+        lib/src/rp/rpmsg.cpp
+        lib/src/regs.cpp)
 target_compile_options(pru_test PRIVATE
+        --include_path=${CMAKE_CURRENT_SOURCE_DIR}/include
         --include_path=${PRU_COMPILER_HOME}/include
         --include_path=${PRU_SOFTPKG_HOME}/include
         --include_path=${PRU_SOFTPKG_HOME}/include/am335x

@@ -1,5 +1,10 @@
-#include "rpmsg.h"
+#include "rp/rpmsg.h"
 
+/*
+ * Used to make sure the Linux drivers are ready for RPMsg communication
+ * Found at linux-x.y.z/include/uapi/linux/virtio_config.h
+ */
+#define VIRTIO_CONFIG_S_DRIVER_OK	4
 
 namespace pru {
 namespace rpmsg {
@@ -21,6 +26,11 @@ int16_t channel::receive(uint16_t* src, uint16_t* dst, void* data, uint16_t* len
 
 int16_t channel::send(uint32_t src, uint32_t dst, void* data, uint16_t len) {
     return pru_rpmsg_send(&m_transport, src, dst, data, len);
+}
+
+void wait_until_ready(fw_rsc_vdev& vdev) {
+    volatile uint8_t *status = &vdev.status;
+    while (!(*status & VIRTIO_CONFIG_S_DRIVER_OK));
 }
 
 }

@@ -468,9 +468,12 @@
 
 #define PRU1_R31_P9_26   (1<<16) // pru1_pru_r31_16 mode6
 
-// Shared memory
+// memory
 #define AM33XX_DATARAM0_PHYS_BASE		0x4a300000
 #define AM33XX_DATARAM1_PHYS_BASE		0x4a302000
 #define AM33XX_PRUSS_SHAREDRAM_BASE		0x4a310000
 
 #define PRU0_DRAM   0x00000
+
+// interrupts
+#define PRU0_R31_FROM_HOST_INT (1 << 30)
