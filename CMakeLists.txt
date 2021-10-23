@@ -27,7 +27,7 @@ unset(CMAKE_CXX_IMPLICIT_LINK_LIBRARIES)
 include_directories(${PRU_SOFTPKG_HOME}/include)
 include_directories(${PRU_SOFTPKG_HOME}/include/am335x)
 
-add_executable(pru_test main.cpp)
+add_executable(pru_test main.cpp rpmsg.cpp rpmsg.h)
 target_compile_options(pru_test PRIVATE
         --include_path=${PRU_COMPILER_HOME}/include
         --include_path=${PRU_SOFTPKG_HOME}/include
@@ -54,3 +54,14 @@ target_link_options(pru_test PRIVATE
 target_link_libraries(pru_test PRIVATE
         --library=libc.a
         --library=${PRU_SOFTPKG_HOME}/lib/rpmsg_lib.lib)
+set_target_properties(pru_test
+        PROPERTIES
+        SUFFIX ".out"
+)
+
+add_custom_target(pru_test_arm_bin
+        COMMAND "${PRU_COMPILER_HOME}/bin/hexpru"
+        "${PRU_COMPILER_HOME}/bin.cmd"
+        "pru_test.out"
+        DEPENDS pru_test
+        WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})

@@ -48,5 +48,5 @@ inline void __halt();
 
 inline void __delay_cycles(unsigned int cycles);
 
-#define __delay_us(ms) __delay_cycles(((unsigned int)(us)) * CYCLES_PER_US);
+#define __delay_us(us) __delay_cycles(((unsigned int)(us)) * CYCLES_PER_US);
 #define __delay_ms(ms) __delay_cycles(((unsigned int)(ms)) * CYCLES_PER_MS);
